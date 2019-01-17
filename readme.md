@@ -48,3 +48,9 @@ To clean junk, run:
 ```
 docker system prune -f
 ```
+
+## Import data from json
+run:
+```
+docker exec [your mongoDB container id] json/import.sh
+```
