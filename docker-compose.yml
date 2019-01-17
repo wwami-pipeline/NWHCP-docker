@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  pipeline-mongo:
+    image: mongo
+    restart: always
+    expose:
+      - "27017"
+    volumes:
+      - ../pipeline-db/data:/data/db
+    logging:
+      driver: none
+  pipeline-db:
+    build:
+      context: ../pipeline-db/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "4002:80"
+    depends_on:
+      - pipeline-mongo
+    environment:
+      - PORTADDR=:4002
+      - DBADDR=pipeline-mongo:27017
+  front-end:
+    build:
+      context: ../Front-End/
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "80:80"
