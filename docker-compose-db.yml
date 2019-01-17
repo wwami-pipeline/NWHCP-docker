@@ -1,12 +1,14 @@
 version: "3"
 
 # set up DB only
-# # docker-compose -f docker-compose.dbOnly.yml up --build
+# docker-compose -f docker-compose-db.yml up --build
 services:
   pipeline-dev-mongo:
-    image: mongo:4.0
+    build:
+      context: ../pipeline-db/data/
+      dockerfile: db.dockerfile
     restart: always
     ports:
       - "27017:27017"
     volumes:
-      - ../pipeline-db/data:/data/db
+      - ../pipeline-db/mongoDB:/data/db

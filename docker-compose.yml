@@ -2,12 +2,14 @@ version: "3"
 
 services:
   pipeline-mongo:
-    image: mongo
+    build:
+      context: ../pipeline-db/data/
+      dockerfile: db.dockerfile
     restart: always
     expose:
       - "27017"
     volumes:
-      - ../pipeline-db/data:/data/db
+      - ../pipeline-db/mongoDB:/data/db
     logging:
       driver: none
   pipeline-db:
@@ -26,6 +28,8 @@ services:
     build:
       context: ../Front-End/
       dockerfile: Dockerfile
+    depends_on:
+      - pipeline-mongo
     restart: always
     ports:
       - "80:80"

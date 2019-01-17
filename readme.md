@@ -48,9 +48,3 @@ To clean junk, run:
 ```
 docker system prune -f
 ```
-
-# Todo
-
-1.  Add authentication for mongoDB
-2.  Rewrite APIs in go
-3.  Create web form?
