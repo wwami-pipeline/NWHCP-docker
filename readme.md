@@ -33,8 +33,12 @@ in waypoint folder
 4.  No need to run 2 & 3 in containers
 
 ## Create Production build
+Firstly create front end production build, in Front-End directory, run:
+```
+npm run build
+```
 
-In this directory, just run
+Then in this directory, just run
 ```
 docker-compose up
 ```
