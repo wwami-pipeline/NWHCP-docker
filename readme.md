@@ -21,6 +21,8 @@ cd to pipeline-server and run
 go mod vendor
 ```
 
+To run in docker, checkout goswift branch
+
 ## For development
 
 1.  Make sure you have mongoDB running on port 27017(defalut) by running
