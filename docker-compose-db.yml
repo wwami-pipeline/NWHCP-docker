@@ -5,10 +5,10 @@ version: "3"
 services:
   pipeline-dev-mongo:
     build:
-      context: ../pipeline-db/data/
+      context: ../NWHCP-server/data/
       dockerfile: db.dockerfile
     restart: always
     ports:
       - "27017:27017"
     volumes:
-      - ../pipeline-db/mongoDB:/data/db
+      - ../NWHCP-server/mongoDB:/data/db

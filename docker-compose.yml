@@ -1,35 +1,35 @@
 version: "3"
 
 services:
-  pipeline-mongo:
+  nwhcp-mongo:
     build:
-      context: ../pipeline-db/data/
+      context: ../NWHCP-server/data/
       dockerfile: db.dockerfile
     restart: always
     expose:
       - "27017"
     volumes:
-      - ../pipeline-db/mongoDB:/data/db
+      - ../NWHCP-server/mongoDB:/data/db
     logging:
       driver: none
-  pipeline-db:
+  nwhcp-server:
     build:
-      context: ../pipeline-db/
+      context: ../NWHCP-server/
       dockerfile: Dockerfile
     restart: always
-    ports:
-      - "4002:80"
+    expose:
+      - "80"
     depends_on:
-      - pipeline-mongo
+      - nwhcp-mongo
     environment:
-      - PORTADDR=:4002
-      - DBADDR=pipeline-mongo:27017
+      - PORTADDR=:80
+      - DBADDR=nwhcp-mongo:27017
   front-end:
     build:
-      context: ../Front-End/
+      context: ../NWHCP-front_end/
       dockerfile: Dockerfile
     depends_on:
-      - pipeline-mongo
+      - nwhcp-mongo
     restart: always
     ports:
       - "80:80"
