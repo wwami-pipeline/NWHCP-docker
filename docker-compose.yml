@@ -5,6 +5,7 @@ services:
     build:
       context: ../NWHCP-server/data/
       dockerfile: db.dockerfile
+    container_name: nwhcp-mongo
     restart: always
     expose:
       - "27017"
@@ -17,6 +18,7 @@ services:
       context: ../NWHCP-server/
       dockerfile: Dockerfile
     restart: always
+    container_name: nwhcp-server
     expose:
       - "80"
     depends_on:
@@ -28,8 +30,22 @@ services:
     build:
       context: ../NWHCP-front_end/
       dockerfile: Dockerfile
+    container_name: front-end
     depends_on:
       - nwhcp-mongo
     restart: always
     ports:
       - "80:80"
+  nwhcp-data-cleaning:
+    build:
+      context: ../NWHCP-data_cleaning/
+      dockerfile: Dockerfile
+    container_name: nwhcp-data-cleaning
+    depends_on:
+      - nwhcp-mongo
+      - nwhcp-server
+    restart: always
+    environment:
+      - RED_CAP_API_TOKEN=2E036BFA999B6FB594112D27F524EA92
+      - GET_ALL_ORG_API=http://nwhcp-server/api/v1/pipeline-db/getallorgs
+      - INSERT_ORG_API=http://nwhcp-server/api/v1/pipeline-db/populate-organizations
