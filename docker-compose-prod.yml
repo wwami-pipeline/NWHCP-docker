@@ -2,9 +2,6 @@ version: "3"
 
 services:
   nwhcp-mongo:
-    build:
-      context: ../NWHCP-server/data/
-      dockerfile: db.dockerfile
     image: uwjake/nwhcp-mongo
     container_name: nwhcp-mongo
     restart: always
@@ -15,9 +12,6 @@ services:
     logging:
       driver: none
   nwhcp-server:
-    build:
-      context: ../NWHCP-server/
-      dockerfile: Dockerfile
     image: uwjake/nwhcp-server
     restart: always
     container_name: nwhcp-server
@@ -29,9 +23,6 @@ services:
       - PORTADDR=:80
       - DBADDR=nwhcp-mongo:27017
   nwhcp-front-end:
-    build:
-      context: ../NWHCP-front_end/
-      dockerfile: Dockerfile
     image: uwjake/nwhcp-front-end
     container_name: nwhcp-front-end
     depends_on:
@@ -40,9 +31,6 @@ services:
     ports:
       - "80:80"
   nwhcp-data-cleaning:
-    build:
-      context: ../NWHCP-data_cleaning/
-      dockerfile: Dockerfile
     image: uwjake/nwhcp-data-cleaning
     container_name: nwhcp-data-cleaning
     depends_on:
