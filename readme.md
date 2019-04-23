@@ -54,3 +54,9 @@ To clean junk, run:
 ```
 docker system prune -f
 ```
+
+## Deploy in VM
+
+```
+sudo docker-compose -f docker-compose-prod.yml up -d
+```

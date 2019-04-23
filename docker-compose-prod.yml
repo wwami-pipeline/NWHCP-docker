@@ -8,7 +8,7 @@ services:
     expose:
       - "27017"
     volumes:
-      - ../NWHCP-server/mongoDB:/data/db
+      - /NWHCP-server/mongoDB:/data/db
     logging:
       driver: none
   nwhcp-server:
