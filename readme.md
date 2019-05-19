@@ -90,9 +90,9 @@ Clone/pull this repo somewhere, now it's in /NWHCP/NWHCP-docker.
 
 Before deploying, you have to stop current running services.
 
-cd into this folder, run:
+cd into this folder, pull so that you have lastest reop and run:
 ```
-docker-compose kill
+sudo docker-compose -f docker-compose-prod.yml kill 
 ```
 
 Or just simply rm running containers.
