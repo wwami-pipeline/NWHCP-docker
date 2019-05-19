@@ -41,7 +41,7 @@ docker-compose -f docker-compose-db.yml up
 
 ## For development (front-end)
 1. Run ```docker-compose up```, you will have all services running on http://localhost.
-2. Run ```npm start```, React .env files are already set up, if you are in dev mode, it will call APIs on http://localhost.
+2. Run ```npm start```, React .env files are already set up, if you are in dev mode, it will call APIs on http://localhost. Feel free to change .env.development file of react to set API point to wherever your server is running.
 
 ## Test Production build on your local machine
 Firstly create front end production build, in nwhcp-frint_end directory, run:
