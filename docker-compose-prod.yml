@@ -2,7 +2,7 @@ version: "3"
 
 services:
   nwhcp-mongo:
-    image: uwjake/nwhcp-mongo
+    image: maliuqing123/nwhcp-mongo
     container_name: nwhcp-mongo
     restart: always
     expose:
@@ -12,7 +12,7 @@ services:
     logging:
       driver: none
   nwhcp-server:
-    image: uwjake/nwhcp-server
+    image: maliuqing123/nwhcp-server
     restart: always
     container_name: nwhcp-server
     expose:
@@ -23,7 +23,7 @@ services:
       - PORTADDR=:80
       - DBADDR=nwhcp-mongo:27017
   nwhcp-front-end:
-    image: uwjake/nwhcp-front-end
+    image: maliuqing123/nwhcp-front-end
     container_name: nwhcp-front-end
     depends_on:
       - nwhcp-mongo
@@ -31,7 +31,7 @@ services:
     ports:
       - "80:80"
   nwhcp-data-cleaning:
-    image: uwjake/nwhcp-data-cleaning
+    image: maliuqing123/nwhcp-data-cleaning
     container_name: nwhcp-data-cleaning
     depends_on:
       - nwhcp-mongo
