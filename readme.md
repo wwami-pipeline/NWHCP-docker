@@ -92,7 +92,7 @@ Before deploying, you have to stop current running services.
 
 cd into this folder, run:
 ```
-docker-compose kill
+sudo docker-compose -f docker-compose-prod.yml kill
 ```
 
 Or just simply rm running containers.
