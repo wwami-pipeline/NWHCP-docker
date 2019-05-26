@@ -17,10 +17,12 @@ services:
     container_name: nwhcp-server
     expose:
       - "80"
+      - "90"
     depends_on:
       - nwhcp-mongo
     environment:
       - PORTADDR=:80
+      - INTERNAL_PORT=:90
       - DBADDR=nwhcp-mongo:27017
   nwhcp-front-end:
     image: uwjake/nwhcp-front-end
@@ -39,5 +41,5 @@ services:
     restart: always
     environment:
       - RED_CAP_API_TOKEN=2E036BFA999B6FB594112D27F524EA92
-      - GET_ALL_ORG_API=http://nwhcp-server/api/v1/orgs
-      - INSERT_ORG_API=http://nwhcp-server/api/v1/pipeline-db/poporgs
+      - INSERT_ORG_API=http://nwhcp-server:90/api/v1/pipeline-db/poporgs
+      - TRUNCATE_ORG_API=http://nwhcp-server:90/api/v1/pipeline-db/truncate
