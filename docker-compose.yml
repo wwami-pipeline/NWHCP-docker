@@ -8,8 +8,8 @@ services:
     image: uwjake/nwhcp-mongo
     container_name: nwhcp-mongo
     restart: always
-    expose:
-      - "27017"
+    ports:
+      - "27017:27017"
     volumes:
       - ../NWHCP-server/mongoDB:/data/db
     logging:

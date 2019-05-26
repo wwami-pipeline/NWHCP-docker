@@ -32,12 +32,15 @@ Or just run it
 
 1.  Make sure you have mongoDB running on port 27017(defalut) by running
 ```
-docker-compose -f docker-compose-db.yml up
+docker-compose up
 ```
-2.  Front-end: ```npm start``` (if you want to do some front-end)
-3.  Back-end: ```go run main.go```
-4.  Data-importing service: ```python main.py```
-5.  No need to run in docker containers. If it works without docker, you can of course get it working with docker.
+
+WARNING: only use docker-compose up on your local machine. OR you will be exposing un-secured mongoDB in production. 
+
+1.  Front-end: ```npm start``` (if you want to do some front-end)
+2.  Back-end: ```go run main.go```
+3.  Data-importing service: ```python main.py```
+4.  No need to run in docker containers. If it works without docker, you can of course get it working with docker.
 
 ## For development (front-end)
 1. Run ```docker-compose up```, you will have all services running on http://localhost.
