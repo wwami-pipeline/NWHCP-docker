@@ -114,3 +114,6 @@ sudo docker-compose -f docker-compose-prod.yml up -d
 This will pull the images and run in detached mode.
 
 Now the NWHCP website should be up and running.
+
+# System Design Diagram
+![Diagram](https://raw.githubusercontent.com/wwami-pipeline/NWHCP-docker/master/system_design.png "Diagram")
