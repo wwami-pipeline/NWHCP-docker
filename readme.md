@@ -6,6 +6,10 @@ You should NEVER publish mongoDB port 27017 (by ```-p 27017:27017```) in product
 
 Instead, expose 27017 only, so that it's only accessible in this docker network. You can do so in ```Dockerfile``` or ```docker-compose.yml``` configurations.
 
+Also DO NOT push the correct redcap API key to this repo. In this repo you can find it in ENV var, it starts with 2E036, don't worry, it's already revoked. For development, you can change it to the correct one in Technical Documentation, but again, DO NOT push it to GitHub in docker-compose yml files. 
+
+If you pushed it to GitHub by accident, you should revoke the current one and regenerate a new one. You can do so in RedCap: find your project, in left nav column click on API, and on the right side, regenerate API key.
+
 ## Requirements
 
 - Node.js
@@ -90,6 +94,8 @@ This will build all images specified in docker-compose.yml and push them to dock
 You must do everything with sudo there.
 
 Clone/pull this repo somewhere, now it's in /NWHCP/NWHCP-docker.
+
+IMPORTANT: check in docker-compose-prod.yml if RED_CAP_API_KEY is the correct one, which is provided in NWHCP Technical Documenation. If it's not, change it with vim, DO NOT push the API key to GitHub for security reasons.
 
 Before deploying, you have to stop current running services.
 
