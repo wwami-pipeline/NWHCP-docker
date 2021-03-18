@@ -18,15 +18,14 @@ services:
     build:
       context: ../NWHCP-server/db/
       dockerfile: sql.dockerfile
-    image: # add img name
+    image: nwhcp-sqldb
     container_name: nwhcp-sql
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=:blah # change these values
       - MYSQL_DATABASE=:mydatabase
   redis:
-    image: # redis name
-    # do something about network
+    image: redis
   nwhcp-server:
     build:
       context: ../NWHCP-server/organizations/
@@ -57,6 +56,8 @@ services:
       - nwhcp-sql
       - redis
       - nwhcp-server
+    ports:
+      - "443:443"
     environment:
       # gateway
       - ADDR=:443
@@ -88,6 +89,7 @@ services:
     depends_on:
       - nwhcp-mongo
       - nwhcp-server
+      - nwhcp-gateway
     restart: always
     environment:
       - RED_CAP_API_TOKEN=2E036BFA999B6FB594112D27F524EA92
