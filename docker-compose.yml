@@ -17,7 +17,7 @@ services:
   nwhcp-sql:
     build:
       context: ../NWHCP-server/db/
-      dockerfile: sql.dockerfile
+      dockerfile: Dockerfile
     image: nwhcp-sqldb
     container_name: nwhcp-sql
     restart: always
