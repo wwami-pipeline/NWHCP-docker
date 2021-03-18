@@ -5,7 +5,7 @@ services:
     build:
       context: ../NWHCP-server/db/
       dockerfile: db.dockerfile
-    image: uwjake/nwhcp-mongo # replace
+    image: annaqzhou/nwhcp-mongo
     container_name: nwhcp-mongo
     restart: always
     ports:
@@ -31,13 +31,12 @@ services:
     build:
       context: ../NWHCP-server/organizations/
       dockerfile: Dockerfile
-    image: uwjake/nwhcp-server
+    image: annaqzhou/nwhcp-server
     restart: always
     container_name: nwhcp-server
     expose:
       - "80"
       - "90"
-      - "443"
     depends_on:
       - nwhcp-mongo
       - nwhcp-sql
@@ -49,7 +48,7 @@ services:
     build:
       context: ../NWHCP-server/gateway/
       dockerfile: Dockerfile
-    image: # img name
+    image: annaqzhou/nwhcp-gateway
     restart: always
     container_name: nwhcp-gateway
     expose:
@@ -73,8 +72,8 @@ services:
     build:
       context: ../NWHCP-front_end/
       dockerfile: Dockerfile
-    image: uwjake/nwhcp-front-end
-    container_name: nwhcp-front-end
+    image: annaqzhou/nwhcp-frontend
+    container_name: nwhcp-frontend
     depends_on:
       - nwhcp-mongo
     restart: always
@@ -84,8 +83,8 @@ services:
     build:
       context: ../NWHCP-data_cleaning/
       dockerfile: Dockerfile
-    image: uwjake/nwhcp-data-cleaning
-    container_name: nwhcp-data-cleaning
+    image: annaqzhou/nwhcp-cleaning
+    container_name: nwhcp-cleaning
     depends_on:
       - nwhcp-mongo
       - nwhcp-server
