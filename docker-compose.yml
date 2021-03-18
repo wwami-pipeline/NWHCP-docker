@@ -3,9 +3,9 @@ version: "3"
 services:
   nwhcp-mongo:
     build:
-      context: ../NWHCP-server/data/
+      context: ../NWHCP-server/db/
       dockerfile: db.dockerfile
-    image: uwjake/nwhcp-mongo
+    image: uwjake/nwhcp-mongo # replace
     container_name: nwhcp-mongo
     restart: always
     ports:
@@ -14,9 +14,22 @@ services:
       - ../NWHCP-server/mongoDB:/data/db
     logging:
       driver: none
+  nwhcp-sql:
+    build:
+      context: ../NWHCP-server/db/
+      dockerfile: sql.dockerfile
+    image: # add img name
+    container_name: nwhcp-sql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=:blah # change these values
+      - MYSQL_DATABASE=:mydatabase
+  redis:
+    image: # redis name
+    # do something about network
   nwhcp-server:
     build:
-      context: ../NWHCP-server/
+      context: ../NWHCP-server/organizations/
       dockerfile: Dockerfile
     image: uwjake/nwhcp-server
     restart: always
@@ -24,12 +37,38 @@ services:
     expose:
       - "80"
       - "90"
+      - "443"
     depends_on:
       - nwhcp-mongo
+      - nwhcp-sql
     environment:
       - PORTADDR=:80
       - INTERNAL_PORT=:90
       - DBADDR=nwhcp-mongo:27017
+  nwhcp-gateway:
+    build:
+      context: ../NWHCP-server/gateway/
+      dockerfile: Dockerfile
+    image: # img name
+    restart: always
+    container_name: nwhcp-gateway
+    expose:
+      - "443"
+    depends_on: 
+      - nwhcp-sql
+      - redis
+      - nwhcp-server
+    environment:
+      # gateway
+      - ADDR=:443
+      - SESSIONKEY=:key
+      - MYSQL_ROOT_PASSWORD=:blah
+      - MYSQL_DATABASE=:mydatabase
+      - REDISADDR=:redis:6379
+      # - ORGADDR=:
+      # need to add letsencrypt stuff
+      # - TLSCERT=:
+      # - TLSKEY=:
   nwhcp-front-end:
     build:
       context: ../NWHCP-front_end/
