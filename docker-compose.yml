@@ -18,8 +18,8 @@ services:
     build:
       context: ../NWHCP-server/db/
       dockerfile: Dockerfile
-    image: nwhcp-sqldb
-    container_name: nwhcp-sql
+    image: annaqzhou/nwhcp-sqldb
+    container_name: nwhcp-sqldb
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=:blah # change these values
