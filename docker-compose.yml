@@ -45,7 +45,7 @@ services:
       - DBADDR=nwhcp-mongo:27017
   nwhcp-gateway:
     build:
-      context: ../NWHCP-server/gateway/
+      context: ../NWHCP-server/gateway
       dockerfile: Dockerfile
     image: annaqzhou/nwhcp-gateway
     restart: always
