@@ -5,7 +5,7 @@ services:
     build:
       context: ../NWHCP-server/db/
       dockerfile: db.dockerfile
-    image: annaqzhou/nwhcp-mongo
+    image: uwjake/nwhcp-mongo
     container_name: nwhcp-mongo
     restart: always
     ports:
@@ -18,11 +18,11 @@ services:
     build:
       context: ../NWHCP-server/db/
       dockerfile: Dockerfile
-    image: nwhcp-sqldb
-    container_name: nwhcp-sql
+    image: annaqzhou/nwhcp-sqldb
+    container_name: nwhcp-sqldb
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=:blah # change these values
+      - MYSQL_ROOT_PASSWORD=:password # change these values
       - MYSQL_DATABASE=:mydatabase
   redis:
     image: redis
@@ -30,7 +30,7 @@ services:
     build:
       context: ../NWHCP-server/organizations/
       dockerfile: Dockerfile
-    image: annaqzhou/nwhcp-server
+    image: uwjake/nwhcp-server
     restart: always
     container_name: nwhcp-server
     expose:
@@ -62,19 +62,18 @@ services:
       # gateway
       - ADDR=:443
       - SESSIONKEY=:key
-      - MYSQL_ROOT_PASSWORD=:blah
+      - MYSQL_ROOT_PASSWORD=:password
       - MYSQL_DATABASE=:mydatabase
       - REDISADDR=:redis:6379
-      # - ORGADDR=:
-      # need to add letsencrypt stuff
-      # - TLSCERT=:
-      # - TLSKEY=:
+    #   - ORGADDR=:80\
+      - TLSCERT=:/etc/letsencrypt/live/nwhealthcareerpath.uw.edu/fullchain.pem
+      - TLSKEY=:/etc/letsencrypt/live/nwhealthcareerpath.uw.edu/privkey.pem
   nwhcp-front-end:
     build:
       context: ../NWHCP-front_end/
       dockerfile: Dockerfile
-    image: annaqzhou/nwhcp-frontend
-    container_name: nwhcp-frontend
+    image: uwjake/nwhcp-front-end
+    container_name: nwhcp-front-end
     depends_on:
       - nwhcp-mongo
     restart: always
@@ -84,12 +83,11 @@ services:
     build:
       context: ../NWHCP-data_cleaning/
       dockerfile: Dockerfile
-    image: annaqzhou/nwhcp-cleaning
-    container_name: nwhcp-cleaning
+    image: uwjake/nwhcp-data-cleaning
+    container_name: nwhcp-data-cleaning
     depends_on:
       - nwhcp-mongo
       - nwhcp-server
-      - nwhcp-gateway
     restart: always
     environment:
       - RED_CAP_API_TOKEN=2E036BFA999B6FB594112D27F524EA92
